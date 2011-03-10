@@ -257,6 +257,12 @@ class Kohana_Request_Client_External extends Request_Client {
 		// Set the request body
 		$options[CURLOPT_POSTFIELDS] = $request->body();
 
+		// Process and set headers
+		$headers = array();
+		foreach ($request->headers() as $key => $value)
+			$headers[] = "{$key}: {$value}";
+		$options[CURLOPT_HTTPHEADER] = $headers;
+
 		// Process cookies
 		if ($cookies = $request->cookie())
 		{
